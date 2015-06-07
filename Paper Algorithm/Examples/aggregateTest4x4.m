@@ -1,0 +1,11 @@
+clc; clear all; close all; restoredefaultpath;
+addpath('../Aggregate');
+P1 = [0.5 0.5 0 0; 0.5 0.5 0 0; 0 0 0.5 0.5; 0 0 0.5 0.5];
+P2 = [-1 0 1 0; 0 -1 0 1; 1 0 -1 0; 0 1 0 -1];
+e = 0.1;
+P = P1+e*P2;
+n = 4;
+[Q,theta,phi,R] = aggregate(P,n);
+generatePlots(P,Q,R);
+%save('ResultadosTest4x4.mat','P','Q','theta','phi','R');
+%save('ResultadosTest4x4m.mat','P','Q','theta','phi','R','-mat-binary');

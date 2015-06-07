@@ -1,0 +1,10 @@
+clc; clear all; close all;
+addpath('../Aggregate2');
+P = generateMarkov(100);
+n = 99;
+tic();
+[Q,theta,phi,R] = aggregate2(P,n);
+toc();
+generatePlots(P,Q,R);
+%save('Resultados2TestRandom.mat','P','Q','theta','phi','R');
+%save('Resultados2TestRandomm.mat','P','Q','theta','phi','R','-mat-binary');

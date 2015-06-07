@@ -1,0 +1,10 @@
+clc; clear all;
+addpath("mainFun");
+global d = 1;
+global e = 0.001;
+col1 = randRow(1,10,100);
+figure;
+plot(col1);
+col2 = randRow(11,30,100);
+figure;
+plot(col2);
