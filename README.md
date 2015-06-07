@@ -11,5 +11,5 @@ Notes:
 - This code was tested and should work in Octave and Matlab
 - Comments on the code were made in Spanish (my native language) before I think about publish this. Sorry about that.
 
-Author: Frano Curotto
+Author: Franco Curotto
 Email: francocurotto@gmail.com
