@@ -10,3 +10,6 @@ in which the main function is aggregate (implemented in the file aggregate.m). T
 Notes:
 - This code was tested and should work in Octave and Matlab
 - Comments on the code were made in Spanish (my native language) before I think about publish this. Sorry about that.
+
+Author: Frano Curotto
+Email: francocurotto@gmail.com
