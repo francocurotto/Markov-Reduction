@@ -16,9 +16,6 @@
 %  hasta que tenga n filas (y columnas)
 
 function[Qq,theta,phi,R] = aggregate(Pp,n)
-    % agregar directorio de funciones
-    addpath('../Aggregate/aggregateFun');
-   	addpath('../Aggregate/aggregateFun/createBCFun');
     
     %%% Parametros iniciales %%% 
     global P, P = Pp;               % Matriz original a agregar 

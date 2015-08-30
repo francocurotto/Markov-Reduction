@@ -15,8 +15,11 @@
 %  Calcula un nuevo candidato a biparticion
 %  usando el metodo del paper.
 function BC = createBC(v,QStateIndex)
+    % Variables globales
+    global P;
+    global pi;
     % Calcula la submatriz correspondiente
-    [subP,subPi] = submatrix(v);
+    [subP,subPi] = submatrix(v,pi,P);
     % Resuelve el problema de os valores propios del paper
     [v1,v2] = solveEigProblem(subP,subPi);
     % Extiende los vetores del resultado anterior

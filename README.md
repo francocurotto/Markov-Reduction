@@ -10,8 +10,7 @@ Deng, Kun, Prashant G. Mehta, and Sean P. Meyn. "Optimal Kullback-Leibler aggreg
 in which the main function is aggregate (implemented in the file aggregate.m). The other algorithm in the 'New Algorithm' is similar to the previous algorithm, but is use a 'top-down' approach, is useful when a small number of states is needed to be reduce.
 
 Notes:
-- This code was tested and should work in Octave and Matlab
-- Comments on the code were made in Spanish (my native language) before I think about publish this. Sorry about that.
+- This code was tested and should work in Octave and Matlab.
 
 Author: Franco Curotto
 Email: francocurotto@gmail.com

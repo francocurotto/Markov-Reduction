@@ -12,11 +12,12 @@
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 clc; clear all; close all; restoredefaultpath;
-addpath('../Aggregate');
+addpath('../Aggregate', '../Aggregate/aggregateFun', '../../commonFunctions');
 
 load M2.mat
 P = M;
 n = 100;
+
 tic();
 [Q,theta,phi,R] = aggregate(P,n);
 toc();

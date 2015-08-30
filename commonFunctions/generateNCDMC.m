@@ -11,21 +11,21 @@
 % You should have received a copy of the GNU General Public License
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%% Funcion get larger lambda
-%  Obtiene el indice del valor propio (de la matriz de valores
-%  propios) de mayor magnitud descartando el valor propio con 
-%  valor 1.
-function index = getLargerLambdaIndex(lambda)
-    % obtenemos la diagonal en un vector
-    d = diag(lambda);
-    % ordenamos el vector de forma creciente
-    sortD = sort(d);
-    % Se obtiene el valor propio necesario
-    if abs(sortD(end-1)) > abs(sortD(1))
-        vp = sortD(end-1);
-    else
-        vp = sortD(1);
+%% funcion generate NCDMC
+%  Genera una cadena de markov NCD.
+%  Se debe entregar el tamaño y 
+%  el vector de division de bloques.
+function MC = generateNCDMC(vb,l)
+    vb = [0 vb l];      % vector de bloques extendido
+    nb = length(vb)-1;  % numero de bloques
+    MC = [];            % NCDMC inicialmente vacia
+    
+    % Se recorren las posiciones de los bloques
+    for i = 1:nb
+        % Se recorre por tamaño de bloque
+        for j = (vb(i)+1):vb(i+1)
+            row = randRow(vb(i)+1,vb(i+1),l);
+            MC = [MC; row];
+        end
     end
-    % obtenemos el indice necesario
-    index = find(d == vp,1);
 end

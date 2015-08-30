@@ -15,11 +15,6 @@
 %  la agregacion a la inversa del paper
 function [Qq,thetaa,phii,R] = aggregate2(Pp,n)
     
-    addpath('../Aggregate2/aggregate2Fun');
-    addpath('../Aggregate2/aggregate2Fun/calculateBCs');
-    addpath('../Aggregate2/aggregate2Fun/calculateNewQsFun');
-    addpath('../Aggregate2/aggregate2Fun/getWQFun');
-    
     global P, P = Pp;               % P matriz a reducir
     global lP, lP = length(P);      % tamaño de la matriz P
     global pi, pi = invariant(P);   % distribuion estacionaria de P

@@ -17,6 +17,7 @@ function BCDB = calculateBCs()
     
     % variables globales
     global Q;
+    global theta;
     BCDB = ones(length(Q),1);
     
     % loop para obtener las biparticiones
@@ -39,7 +40,7 @@ function BCDB = calculateBCs()
             break;
         end
         % obtenemos la submatriz para calcular la biparticion
-        [subQ,subTe] = submatrix(pv);
+        [subQ,subTe] = submatrix(pv,theta,Q);
         % calculamos la biparticion
         [v1,v2] = solveEigProblem(subQ,subTe);
         % extendemos los vectors al tamaño original
