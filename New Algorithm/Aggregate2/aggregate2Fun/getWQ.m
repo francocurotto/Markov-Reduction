@@ -11,32 +11,30 @@
 % You should have received a copy of the GNU General Public License
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%% Funcion get WQ
-%  Obtiene el mejor candidato de Q, que es
-%  el que tiene menor tasa de divergencia 
-%  con la matriz original
+%% Function get WQ
+%  Get best Q candidate, that is who has the lowest
+%  divergence rate with the original matrix.
 function WQ = getWQ(QDB)
     
-    %numero de Qs candidatos
+    % Number of candidates
     nQ = size(QDB,2);
-    % menor tasa de divergencia
+    % Lowest divergence rate
     minR = inf;
-    % indice de la menor divergencia
+    % Lowest divergence rate index
     iMin = 0;
     
-    % se recorren todos los candidatos
+    % Candidate loop
     for i=1:nQ
-        % Se calcula la tasa de divergencia
-        % del candidato
+        % Compute candidate divergence rate
         Rcan = calculateR(QDB{1,i},QDB{2,i});
-        % Si dicha tasa es menor a la actual
+        % If current R is lower then lowest
         if Rcan < minR
-            % se guarda la tasa y el indice
+            % Save divergence and index
             minR = Rcan;
             iMin = i;
         end
     end
-    % se devuelve la celda que contiene al minimo en la forma:
+    % Return the cell that has the best in the from:
     % {Qmin, phiMin, Rmin}
     WQ = {QDB{1,iMin},QDB{2,iMin},minR};
     

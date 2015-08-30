@@ -11,38 +11,35 @@
 % You should have received a copy of the GNU General Public License
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%% Fucntion aggregate 2 Q States
-%  Junta dos estados de Q, los que vienen
-%  dados por un vector binario v de solo dos 1's.
-%  Los 1's indican los estados a agregar
+%% Function aggregate 2 Q States
+%  Aggregate two states in Q. State to aggregate are given by vector v.
+%  1's in v indicate the state to aggregate.
 function [agQ, agPhi] = aggregate2QStates(v)
     
-    % variables globales
+    % Global variables
     global Q;
     global phi;
     
-    % se copia Q
+    % Copy Q
     agQ = Q;
-    % posiciones de los estados a agregar
+    % Position of state to aggregate
     pos = find(v);
-    % se obtienen los vectores verticales
-    % para agregar
+    % Get Q columns to aggregate
     v1 = agQ(:,pos(1));
     v2 = agQ(:,pos(2));
-    % se calcula el nuevo vector vertical
+    % Compute new aggregated column
     vn = v1+v2;
-    % se le agrega el vector vertical a agQ
+    % Add column to agQ
     agQ = [agQ(:,1:(pos(1)-1)) vn agQ(:,(pos(1)+1):(pos(2)-1)) agQ(:,(pos(2)+1):end)];
-    % se obtienen los vectores horizontales
-    % para agregar
+    % Get Q rows to aggregate
     h1 = agQ(pos(1),:);
     h2 = agQ(pos(2),:);
-    % se calcula el nuevo vector horizontal
+    % Compute new aggregated row
     hn = (h1+h2)*0.5;
-    % se le agrega el vector horizontal a agQ
+    % Add row to agQ
     agQ = [agQ(1:(pos(1)-1),:);hn;agQ((pos(1)+1):(pos(2)-1),:);agQ((pos(2)+1):end,:)];
     
-    % se agrega phi
+    % Add phi
     agPhi = [phi(:,1:(pos(1)-1)) phi(:,pos(1))|phi(:,pos(2)) phi(:,(pos(1)+1):(pos(2)-1)) phi(:,(pos(2)+1):end)];
        
 end 

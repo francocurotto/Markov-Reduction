@@ -11,26 +11,24 @@
 % You should have received a copy of the GNU General Public License
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%% Funcion get larger lambda
-%  Obtiene el indice del valor propio (de la matriz de valores
-%  propios) de mayor magnitud descartando el valor propio con 
-%  valor 1.
+%% Function get larger lambda
+%  Get the index of the largest eigenvalue of the eigenvalue matrix,
+%  omitting the eigenvalue of value 1.
 function index = getLargerLambdaIndex(lambda)
-    % obtenemos la diagonal en un vector
+    % Get diagonal in a vector
     d = diag(lambda);
-    % ordenamos el vector de forma creciente
+    % Sort values in increasing order
     sortD = sort(d);
-    %sortD
-    % Se obtiene el valor propio necesario
+    % Get required eigenvalue
     if abs(sortD(end-1)) > abs(sortD(1))
         vp = sortD(end-1);
     else
         vp = sortD(1);
     end
-    % obtenemos el indice necesario
+    % Get required index
     index = find(d == vp);
-    %%% IMPORTANTE: Esto es un parque que agregue para solucionar un
-    %%% problema de un vp de multiplicidad 2, esto debe ser estudiado
+    %%% IMPORTANT: This is a fix added to solve the problem of a eigenvalue
+    %%% of multiplicity 2, this must be fixed. 
     if length(index)>1
         index=index(2);
     end

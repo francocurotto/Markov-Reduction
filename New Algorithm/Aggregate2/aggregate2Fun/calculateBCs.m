@@ -11,44 +11,44 @@
 % You should have received a copy of the GNU General Public License
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%% Funcion calculate BCs
-%  calcula todas las biparticiones sub optimas posibles de Q
+%% Function calculate BCs
+%  Calculate all possible suboptimum bipartitions of Q.
 function BCDB = calculateBCs()
     
-    % variables globales
+    % Global variables
     global Q;
     global theta;
     BCDB = ones(length(Q),1);
     
-    % loop para obtener las biparticiones
+    % Bipartition loop
     while true
         stopLoop = true;
         DBl = length(BCDB(1,:));
-        % revisamos todas las particiones actuales
+        % Check all current bipartition
         for i=1:DBl
-            % obtenemos una particion
+            % Get one bipartition
             pv = BCDB(:,i);
-            % calculamos la cantidad de unos en ella
+            % Get the number of 1's in it
             nOnes = length(find(pv));
             if nOnes > 2
                 stopLoop = false;
                 break;
             end
         end
-        % si solo quedan particiones de tamaño 2, terminamos
+        % If only we have bipartitions of size 2, finish
         if stopLoop
             break;
         end
-        % obtenemos la submatriz para calcular la biparticion
+        % Get the submatrix to compute the bipartition
         [subQ,subTe] = submatrix(pv,theta,Q);
-        % calculamos la biparticion
+        % Calculate the bipartition
         [v1,v2] = solveEigProblem(subQ,subTe);
-        % extendemos los vectors al tamaÃ±o original
+        % Extends vectors to original size
         [v1,v2] = extendsVectors(v1,v2,pv);
-        % removemos el vp particionado de la base de datos
+        % Remove bipartition in database
         BCDB = [BCDB(:,1:i-1) BCDB(:,i+1:DBl)];
-        % agregamos las biparticiones solo si unen 2 estados
-        % i.e. tienen mas de un 1
+        % Add bipartition only if 2 state are aggregated,
+        % i.e. they have more then one 1
         if length(find(v1)) > 1
             BCDB = [BCDB(:,1:i-1) v1' BCDB(:,i:end)];
             i = i+1;

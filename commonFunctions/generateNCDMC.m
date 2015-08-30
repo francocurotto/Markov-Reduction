@@ -11,18 +11,17 @@
 % You should have received a copy of the GNU General Public License
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%% funcion generate NCDMC
-%  Genera una cadena de markov NCD.
-%  Se debe entregar el tamaño y 
-%  el vector de division de bloques.
+%% Function generate NCDMC
+%  Generate a NCD Markov chain.
+%  Need size and block division vector.
 function MC = generateNCDMC(vb,l)
-    vb = [0 vb l];      % vector de bloques extendido
-    nb = length(vb)-1;  % numero de bloques
-    MC = [];            % NCDMC inicialmente vacia
+    vb = [0 vb l];      % Extended block vector
+    nb = length(vb)-1;  % Block number
+    MC = [];            % NCDMC initially empty
     
-    % Se recorren las posiciones de los bloques
+    % Loop block position
     for i = 1:nb
-        % Se recorre por tamaño de bloque
+        % Loop block size
         for j = (vb(i)+1):vb(i+1)
             row = randRow(vb(i)+1,vb(i+1),l);
             MC = [MC; row];

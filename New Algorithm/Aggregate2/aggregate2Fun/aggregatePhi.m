@@ -12,16 +12,16 @@
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 %% Function aggregatePhi
-%  agrega dos estdos de phi segun el vector v
+%  Aggregate to states of phi, given by v.
 function agPhi = aggregatePhi(v)
     
-    % variables globales
+    % Global variables
     global phi;
    
-    % posiciones de los estados a agregar
+    % Position of the state to aggregate
     pos = find(v);
     
-    % se agrega phi
+    % Aggregate phi
     agPhi = [phi(:,1:(pos(1)-1)) phi(:,pos(1))|phi(:,pos(2)) phi(:,(pos(1)+1):(pos(2)-1)) phi(:,(pos(2)+1):end)];
        
 end 

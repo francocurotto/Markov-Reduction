@@ -11,31 +11,30 @@
 % You should have received a copy of the GNU General Public License
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%% Funcion create Q
-%  Crea el siguiente candidato a Q con
-%  el teorema 3 del paper.
+%% Function create Q
+%  Create next Q candidate using theorem (3) of paper.
 function newQ = calculateQ(newBDB)
     
-    % variables globales
+    % Global variables
     global P;
     global PI;
     
-    % tamaño del nuevo Q
+    % New Q size
     lQ = length(newBDB(1,:));
     
-    % calculamos el numerador de Q
+    % Q numerator
     Qnum = newBDB'*PI*P*newBDB;
     
-    % inicilizamos el denominador de Q
+    % Initiate Q denominator
     Qden = zeros(lQ,1);
-    % iteramos para calcular el denominador
+    % Iterate to compute Q denominator
     for i=1:lQ
     	Qden(i) = (newBDB(:,i)'*PI*newBDB(:,i));
     end
     
-    % extendemos el denominador para que sea una matriz
+    % Extend denominator to be a matrix
     Qden = repmat(Qden,1,lQ);
-    % obtenemos el nuevo Q
+    % Compute new Q
     newQ = Qnum./Qden;
     
 end

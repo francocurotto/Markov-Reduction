@@ -11,26 +11,24 @@
 % You should have received a copy of the GNU General Public License
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%% Funcion create BC
-%  Calcula un nuevo candidato a biparticion
-%  usando el metodo del paper.
+%% Function create BC
+%  Compute new bipartition candidate using the paper's method.
 function BC = createBC(v,QStateIndex)
-    % Variables globales
+    % Global variables
     global P;
     global pi;
-    % Calcula la submatriz correspondiente
+    % Compute submatrix
     [subP,subPi] = submatrix(v,pi,P);
-    % Resuelve el problema de os valores propios del paper
+    % Solve paper's eigenvalues equation
     [v1,v2] = solveEigProblem(subP,subPi);
-    % Extiende los vetores del resultado anterior
-    % para que tengan el tamaño original l
+    % Extends previous vectors so they have the length of the original matrix
     [v1,v2] = extendsVectors(v1,v2,v);
-    % Se obtiene la base de datos nueva de la nueva biparticion
+    % Create new database for the new bipartition
     newBDB = createNewBDB(v1,v2,QStateIndex);
-    % Se calcula el nuevo Q candidato con v1 y v2
+    % Compute new Q with v1 and v2
     newQ = calculateQ(newBDB);
-    % Se calcula el nuevo R candidato con el nuevo Q
+    % Compute new candidate for new Q
     newR = calculateR(newQ,newBDB);
-    % Finalmente se crea el nuevo candidato a biparticion
+    % Finally, create new bipartition candidate
     BC = {v1,v2,newQ,newR,QStateIndex};
 end

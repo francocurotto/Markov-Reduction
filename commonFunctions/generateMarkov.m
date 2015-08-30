@@ -11,15 +11,15 @@
 % You should have received a copy of the GNU General Public License
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%% Funcion generate markov
-%  genera una cadena de markov aleatoria de tamaño n
+%% Function generate Markov
+%  Generate a random Markov chain of size n. 
 function M = generateMarkov(n)
     
-    % genera una martiz cuadrada aleatoria
+    % Generate a random square matrix 
     M = rand(n);
-    % se obtiene la suma por filas
+    % Get sum per rows
     sumRows = sum(M,2);
-    % Se normalizan las filas
+    % Normalize rows
     for i=1:n
         M(i,:) = M(i,:)/sumRows(i);
     end

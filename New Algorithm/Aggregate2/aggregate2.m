@@ -11,37 +11,36 @@
 % You should have received a copy of the GNU General Public License
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%% Funcion aggregate 2
-%  la agregacion a la inversa del paper
+%% Function aggregate 2
+%  Aggregate algorithm, inverse to the paper
 function [Qq,thetaa,phii,R] = aggregate2(Pp,n)
     
-    global P, P = Pp;               % P matriz a reducir
-    global lP, lP = length(P);      % tamaño de la matriz P
-    global pi, pi = invariant(P);   % distribuion estacionaria de P
-    global PI, PI = diag(pi);		% Matriz cn pi en la diagonal
-    global Q, Q = P;                % Q inicial, es igual a P
-    global l, l = length(Q);        % Tamaño de Q
-    global theta, theta = invariant(Q);    % distribucion estacionaria de Q
-    global phi, phi = eye(l);       % Funcion de particion inicial,
-                                    % es igual a la identidad
-    R = zeros(1,n+1);                 % Arreglo con las sucesivas
-                                    % Tasas de divergencia
+    global P, P = Pp;               % Input matrix
+    global lP, lP = length(P);      % P length
+    global pi, pi = invariant(P);   % Stationary distribution of P
+    global PI, PI = diag(pi);		% Matrix with pi in diagonal 
+    global Q, Q = P;                % Output matrix
+    global l, l = length(Q);        % Q length
+    global theta, theta = invariant(Q);    % Stationary distribution of Q
+    global phi, phi = eye(l);       % Initial partition function
+    R = zeros(1,n+1);               % Divergence rate per iteration
+    
     R(1) = calculateR(Q,phi); 
     for i=1:n
-        % calcular los cadidatos da estados a agregar
+        % Calculate de candidates of the state to aggregate
         BCDB = calculateBCs();
-        % obtener los Q de cada candidato
+        % Get Q of every candidate
         QDB = calculateNewQs(BCDB);
-        % obtener el mejor candidato
+        % Get best candidate
         WQ = getWQ(QDB);
-        % obtener los resultados
+        % Get results
         Q = WQ{1};
         phi = WQ{2};
         R(i+1) = WQ{3};
         theta = invariant(Q);
         l = length(Q);
     end
-    % asignamos las variable a retornar
+    % Return variables
     Qq = Q;
     thetaa = theta;
     phii = phi;

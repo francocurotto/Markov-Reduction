@@ -11,87 +11,72 @@
 % You should have received a copy of the GNU General Public License
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%% Funcion aggregate
-%  Agrega la matriz de cadena de markov P
-%  hasta que tenga n filas (y columnas)
-
+%% Function aggregate
+%  Aggregate Markov chain P until it has n rows (and columns)
 function[Qq,theta,phi,R] = aggregate(Pp,n)
     
-    %%% Parametros iniciales %%% 
-    global P, P = Pp;               % Matriz original a agregar 
-                                    % (entrada), se pasa a variable
-                                    % global.
+    %%% Initial parameters %%% 
+    global P, P = Pp;               % Input matrix to aggregate
                                     
-    global pi, pi = invariant(P);   % Distribucion estacionaria de
-                                    % P. se calcula con la funcion
-                                    % stationary.
+    global pi, pi = invariant(P);   % Stationary distribution of P
                                     
-    global PI, PI = diag(pi);       % Misma distribucion pero puesta 
-                                    % en la digonal de una matriz.
+    global PI, PI = diag(pi);       % Stationary distribution pi in diagonal
+                                    % matrix form
                                     
-    global Q, Q = 1;                % Matriz agregada (salida),
-                                    % inicialmente matriz 1x1 [1].
+    global Q, Q = 1;                % Output matrix
     
-    k = 1;                          % Numero actual de iteracion,
-                                    % inicialmente 1.
+    k = 1;                          % Current iteration
     
-    global l, l = length(P);        % Numero de filas (o columnas) de P
+    global l, l = length(P);        % Number of rows (and columns) of P
     
-    global BDB, BDB = ones(l,1);    % Base de datos de Biparticiones
-                                    % equivalente a la funcion phi
-                                    % inicialmente [1;1;...;1]
+    global BDB, BDB = ones(l,1);    % Bipartition database, equivalent to 
+                                    % function phi
     
-    global BCDB, BCDB = cell(0);    % Base de datos candidatos a 
-                                    % biparticiones
-                                    % estructura: {particion1,particion2,
-                                    % tasa de divergencia, Q candidato,
-                                    % indice del estado biparticionado}
-                                    % inicialmente vacia.
+    global BCDB, BCDB = cell(0);    % Bipartition candidates database,
+                                    % structure; {partition1, partition2,
+                                    % divergence rate, Q candidate, 
+                                    % bipartition state}
     
-    R = zeros(1,n);                 % Arreglo con las sucesivas tasas de
-                                    % divergencia calculadas
-                                    % inicalmente arreglo de ceros. 
+    R = zeros(1,n);                 % Array of divergence rates per iteration 
                                     
-    % Se calcula la primera tasa de divergencia
+    % First divergence rate
     R(1) = calculateR(Q,BDB);
     
-    %%% Algoritmo %%%
+    %%% Algorithm %%%
     
-    % Inicio ciclo
+    % Main loop
     while k<n
-        % Se recorre la base de datos de biparticiones
+        % Loop thorugh bipartition database
         for i=1:size(BDB,2)
-            % si es que la particion tiene solo un elemento,
-            % no intentar biparticionarlo
+            % If bipartition has only one element,
+            % don't try to partition 
             if sum(BDB(:,i)) <= 1
                 continue;
             end
-            % Se crea un candidato a biparticion
+            % Create bipartition candidate
             BC = createBC(BDB(:,i),i);
-            % Se agrega candidato a la base de datos
+            % Add candidate to database
             BCDB{length(BCDB)+1}=BC;
         end
-        % Se obtiene el candidato a biparticion 
-        % con menor tasa de divergencia
+        % Get candidate with lower divergence rate
         WB = getMinBCDB();
-        % Se agregan las dos biparticiones nuevas
-        % a la base de datos de biparticiones con
-        % parametro new (1)
+        % Add both new partition to the database
+        % with parameter new (1)
         addWBinBDB(WB);
-        % Se actualiiza el valor de Q
+        % Update Q
         Q = WB{3};
-        % Se agrega el valor actual de R
+        % Add current value of R
         R(k+1) = WB{4};
-        % Se borran los candidatos
+        % Erase candidates
         BCDB = [];
-        % Se aumenta en uno k
+        % Next iteration
         k = k+1;
     end
     
-    % Se calcula la distribucion estacionaria del Q final
+    % Compute stationary distribution of final Q
     theta = invariant(Q);
-    % Se obtiene la funcion de particion
+    % Get partition function
     phi = BDB;
-    % Se retorna Q
+    % return Q
     Qq = Q;
 end

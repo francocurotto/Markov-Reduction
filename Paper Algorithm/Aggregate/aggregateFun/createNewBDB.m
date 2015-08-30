@@ -11,17 +11,15 @@
 % You should have received a copy of the GNU General Public License
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%% Funcion new BCB
-%  crea una nueva base de datos de biparticiones
-%  agregando la nueva bipartibcion v1, v2 en 
-%  el iindice i
+%% Function new BCB
+%  Create new bipartition database adding new bipartition v1, v2
+%  in index i.
 function newBDB = createNewBDB(v1,v2,i)
-    % variables globales
+    % Global variables
     global BDB;
     global l;
     
-    % Hacemos una copia del la base de datos 
-    % de biparticiones
+    % Make a copy of bipartition database
     BDBc = BDB;
     
     newBDB = [BDBc(1:l,1:i-1) v1' v2' BDBc(1:l,i+1:size(BDBc,2))];

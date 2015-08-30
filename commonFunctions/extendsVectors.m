@@ -11,18 +11,17 @@
 % You should have received a copy of the GNU General Public License
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%% Funcion extends vectors
-%  Extiende los vectores de las biparticiones de
-%  las submatrices al tamaño de la matriz original
+%% Function extends vectors
+%  Extends bipartition vectors of submatrices to the original matrix size
 function [extV1,extV2] = extendsVectors(v1,v2,v)
 
-    % copiamos v a extV1
+    % Copy v to extV1
     extV1 = v';
-    % le pasamos el vector v1
+    % Give extV1 v1 values
     extV1(logical(v)) = v1;
-    % copiamos v a extV2
+    % Copy v to extV2
     extV2 = v';
-    % le pasamos el vector v2
+    % Give extV2 v2 values
     extV2(logical(v)) = v2;
       
 end

@@ -11,26 +11,24 @@
 % You should have received a copy of the GNU General Public License
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%% Funcion add WB in BDB
-%  Agrega la biparticion ganadora a la base de 
-%  datos de biparticiones, elimina el estado 
-%  biparticionado y actualiza el new/old de 
-%  las biparticiones
+%% Function add WB in BDB
+%  Add winner bipartition candidate to the bipartition database,
+%  delete old bipartition, update new/old status of database elements.
 function addWBinBDB(WB)
-    % variables globales
+    % Global variables
     global BDB;
     
-    % indice donde colocar las biparticiones
+    % Bipartition location index
     ind = WB{5};
     
-    %vectores de la pibarticion
+    % Bipartition vectors
     v1 = WB{1};
     v2 = WB{2};
     
-    % se obtiene la matriz de biparticiones
+    % Bipartition matrix
     bm = BDB;
     
-    % se actualiza la matriz de bipaticiones
+    % Update bipartition matrix
     sizeBDB = size(bm);
     BDB = [bm(:,1:ind-1) v1' v2' bm(:,ind+1:sizeBDB(2))];
 end 

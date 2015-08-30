@@ -11,25 +11,22 @@
 % You should have received a copy of the GNU General Public License
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%% Funcion solve eigenvalue problem
-%  Resuelve el problema de los valores
-% propios presentado en el paper: ^P v'=l PI v'
-% y entrega la estructura de signo del segundo vector propio
-% mayor en magnitud, y su complemento
+%% Function solve eigenvalue problem
+%  Solve the equation of eigenvalues presented in the paper: ^P v'=l PI v'
+%  and return the sign structure of second eigenvector of largest magnitude,
+%  and its complement 
 function [v1, v2] = solveEigProblem(subP,subPi)
-    % Creamos la matriz diagonal de subPi
+    % Create diagonal matrix SubPI
     subPI = diag(subPi);
-    % Calculamos la "additive reversibilization" de subP
+    % Compute the additive reversibilization of subP
     ARsubP = 0.5*(subP+subPI\subP'*subPI);
-    % Calculamos los valores y vectores propios
+    % Get eigenvelues and eigenvectors
     [V,lambda] = eig(ARsubP);
-    % Obtenemos el indice del mayor valor propio en magnitud
-    % descartando el valor 1
+    % Get the index of largest eigenvalue in magnitude, omitting value 1
     largerLambdaIndex = getLargerLambdaIndex(lambda);
-    % Obtenemos el vector propio correspondiente
-    % a dicho valor propio
+    % Get associated eigenvector
     u = V(:,largerLambdaIndex);
-    % Obtenemos los vectores de subparticion
+    % Get bipartition vector
     v1 = u>=0;
     v2 = ~v1;
 end

@@ -12,31 +12,28 @@
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 %% Funcion calculate new R
-%  Calcula la tasa de entropia del
-%  nuevo Q con el P original
-%  Para esto es necesario la funcion
-%  de particion, o en otras palabaras,
-%  la base de datos de biparticiones.
+%  Compute entropy of new Q with original P.
+%  For this is necessary the partition function, i.e., bipartition database.
 function newR = calculateR(newQ,newBDB)
-    % variables globales
+    % Global variables
     global P;
     global pi;
    
-    % se calcula Q(phi(i),phi(j))
+    % Compute Q(phi(i),phi(j))
     superQ = newBDB*newQ*newBDB';
-    % se calcula  P.*log2(P/superQ)
+    % Compute  P.*log2(P/superQ)
     PlogPQ = P.*log2(P./superQ);
-   	% se eliminan los nan
+   	% Remove nan
    	PlogPQ(isnan(PlogPQ)) = 0;
-    % se calcula T
+    % Compute T
     T = sum(pi.*(sum(PlogPQ,2)'));
     
-    % se calcula sum(psi(j)pi_k)
+    % Compute sum(psi(j)pi_k)
     sumPi = (pi*newBDB)*newBDB';
-    %se calcula S
+    % Compute S
     S = sum(pi.*log2(pi./sumPi));
     
-    % Se calcula la tasa de entropia
+    % Compute enptrpy
     newR = T-S;
     
 end 

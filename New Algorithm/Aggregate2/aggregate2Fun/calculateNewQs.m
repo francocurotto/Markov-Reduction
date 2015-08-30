@@ -12,21 +12,19 @@
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 %% Function calculate new Qs
-%  calcula los Qs nuevos acorde a la base de datos
-%  de biparitciones
+%  Calculate new Qs according to bipartition database
 function QDB = calculateNewQs(BCDB)
     
     
-    % numero de Qs candidatos que se calcularan
+    % Number of computed candidates
     nQ = length(BCDB(1,:));
-    % base datos de nuevos Qs (celda)
+    % New Qs candidates
     QDB = cell(2,nQ);
     % Se itera y se calculan todos los candidatos Q
     % y sis correspondientes phi
+    % Loop through database and compute candidates and phis 
     for i=1:nQ
-    	% se agraga un nuevo phi
-    	
-        % [newQ,newPhi] = aggregate2QStates(BCDB(:,i));
+    	% add new phi
         newPhi = aggregatePhi(BCDB(:,i));
         newQ = calculateQ(newPhi);
         QDB{1,i} = newQ;

@@ -11,32 +11,31 @@
 % You should have received a copy of the GNU General Public License
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%% Funcion get min BCDB
-%  Consigue el candidato a bipaticion con menor tasa de 
-%  divergencia y elimina dicho candidato de la base de
-%  datos de candidatos.
+%% Function get min BCDB
+%  Get the bipartition candidate the the lowest divergence rate
+%  and remove said candidate of candidate database.
 function WB = getMinBCDB()
-    % variables globales
+    % Global variables
     global BCDB; 
-    % varible de retorno
+    % Return variable
     WB = cell(0);
-    % menor tasa de entropia
+    % Lowest entropy
     minR = inf;
-    % indice del elemento a quitar
-    ind=0;
-    % loop que recorre la base de datos de candidatos
+    % Index of the elmeent to remove
+    ind = 0;
+    % Bipartition candidate loop
     for i=1:size(BCDB,2)
-        % se extrae el candidato
+        % Get candidate
         BC = BCDB{i};
-        % se extrae su tasa de divergencia
+        % Get divergence rate
         canR = BC{4};
-        % si se obitene una nueva divergencia menor
+        % If lower divergence
         if canR < minR
             minR = canR;
             WB = BC;
             ind = i;
         end
     end
-    % se elimina la biparticion ganadora de la base de datos
+    % Remove candidate with le lowest divergence rate from the database
     BCDB(ind) = [];  
 end
